@@ -1,7 +1,19 @@
+
+import SignIn from '../components/SignIn'
+import Signup from '../components/Signup'
+import { AuthDetails } from '../components/auth/AuthDetails'
+
 function App() {
-  return <>heloo 
-  <span className="text-4xl block">hi then</span>
-  nigeria</>;
+
+  return (
+    <div>
+       <Signup />
+       <div>
+        <SignIn />
+       </div>
+       <AuthDetails />
+    </div>
+  )
 }
 
-export default App;
+export default App
