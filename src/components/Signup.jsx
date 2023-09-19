@@ -21,22 +21,23 @@ const Signup = () => {
 
   return (
     <div>
-      <h2>Create Your Account</h2>
       <form onSubmit={signUpFunc}>
         <input
           type="text"
           placeholder="User Email"
+          className="w-full mb-14"
           value={userNewEmail}
           onChange={(e) => setUserNewEmail(e.target.value)}
         />
         <input
           type="password"
-          placeholder="User Password"
+          placeholder="Password"
           value={userNewPass}
+          className="w-full mb-14"
           onChange={(e) => setUserNewPass(e.target.value)}
         />
 
-        <button type="submit">Sign Up</button>
+        <button className="btns" type="submit">Sign Up</button>
       </form>
     </div>
   );
