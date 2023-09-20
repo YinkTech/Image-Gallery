@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "./../firebase";
-import {
-  isSignInWithEmailLink,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import logo from "../assets/images/user.png";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
+import Control from "../components/Control";
 
 const App = () => {
+
   useEffect(() => {
     AOS.init();
   }, []);
@@ -40,7 +38,6 @@ const App = () => {
       .catch((error) => console.log(error));
   };
 
-  console.log(isSignInWithEmailLink);
   return (
     <div>
       {authUser ? (
@@ -52,13 +49,15 @@ const App = () => {
                 {authUser.email}
               </div>
               <div>
-              <button className="btns" onClick={userSignOut}> Sign Out </button>
+                <button className="btns" onClick={userSignOut}>
+                  {" "}
+                  Sign Out{" "}
+                </button>
               </div>
             </header>
           </div>
           <h1>hello world</h1>
-          <p>{`Signed In as ${authUser.email}`}</p>{" "}
-          <button onClick={userSignOut}> Sign Out </button>{" "}
+          <Control />
         </>
       ) : (
         <p>Signed Out</p>
