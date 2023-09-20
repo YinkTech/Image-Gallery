@@ -41,9 +41,8 @@ const SignIn = () => {
     <div>
       <div className="text-white flex h-full fixed w-full">
         <div
-          className=" hidden lg:flex  flex-col items-center justify-center"
+          className="flex-1 hidden lg:flex  flex-col items-center justify-center"
           style={{
-            flex: "1",
             backgroundImage: "linear-gradient( #381d39 ,#57293f)",
           }}
         >
@@ -62,9 +61,8 @@ const SignIn = () => {
           </div>
         </div>
         <div
-          className=" w-full h-full flex flex-col items-center justify-center"
+          className="md:flex-1 w-full h-full flex flex-col items-center justify-center"
           style={{
-            flex: "1",
             background: `url(${bglog})`,
             backgroundColor: "#af4c52",
           }}

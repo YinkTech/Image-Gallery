@@ -104,7 +104,7 @@ const Signup = () => {
                 </button>
 
                 <Link
-                  to="/signin"
+                  to="/"
                   className=" my-8 block text-[#fdbac2] underline"
                 >
                   I'm already a member
