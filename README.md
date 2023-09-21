@@ -26,7 +26,7 @@ To get a local copy up and running, follow these simple steps:
 
 1. Open your terminal
 
-2. Clone the GitHub Repository using 'git clone https://github.com/YinkTech/MovieBox.git'
+2. Clone the GitHub Repository using 'git clone https://github.com/YinkTech/Image-Gallery.git'
 
 - Go to the Project Directory 'cd moviebox-hngx'
 - Run `npm install` to install dependencies

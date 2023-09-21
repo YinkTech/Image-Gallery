@@ -103,7 +103,7 @@ const Signup = () => {
                 <input
                   type="text"
                   placeholder="User Email"
-                  className="w-full mb-14"
+                  className="input w-full mb-14"
                   value={userNewEmail}
                   onChange={(e) => setUserNewEmail(e.target.value)}
                 />
@@ -111,7 +111,7 @@ const Signup = () => {
                   type="password"
                   placeholder="Password"
                   value={userNewPass}
-                  className="w-full mb-14"
+                  className="input w-full mb-14"
                   onChange={(e) => setUserNewPass(e.target.value)}
                 />
 

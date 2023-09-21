@@ -6,6 +6,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
 import Control from "../components/Control";
+import backseat from "./../assets/images/loadingg.gif";
 
 const App = () => {
   useEffect(() => {
@@ -42,13 +43,23 @@ const App = () => {
       {authUser ? (
         <>
           <div>
-            <header className="flex justify-between items-center p-3">
-              <div className="flex items-center ">
-                <img src={logo} alt={logo} className="logo" style={{ width: "50px" }} />
-                {/* {authUser.email} */}
+            <header
+              style={{ background: `url(${backseat})`, backgroundPosition: 'bottom' }}
+              className="flex justify-between py-5 pt-0 h-20  items-center p-3"
+            >
+              <div className="flex items-center bg-white rounded-full justify-center ">
+                <img
+                  src={logo}
+                  alt={logo}
+                  className="logo"
+                  style={{ width: "50px" }}
+                />
               </div>
+              <h1 className="text-center text-2xl md:text-4xl text-[#fff] font-bold">
+                Art Gallery
+              </h1>
               <div>
-                <button className="btnss" onClick={userSignOut}>
+                <button className="btnss p-1 md:p-3 md:px-5 " onClick={userSignOut}>
                   {" "}
                   Sign Out{" "}
                 </button>

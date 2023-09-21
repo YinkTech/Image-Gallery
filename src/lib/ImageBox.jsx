@@ -64,11 +64,12 @@ const ImageBox = () => {
 
   return (
     <div className="py-3">
-      <div className="mx-auto">
+      <div className="container flex mx-auto">
         <input
           type="text"
           placeholder="Search.."
-          className="p-1 bg-white mx-auto my-3"
+          className="p-3 mx-auto w-1/2  my-3 bg-[#1f1f1e]"
+          style={{border: '1px solid #c67075', borderRadius: '10px'}}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -82,19 +83,19 @@ const ImageBox = () => {
           {filteredImages.length === 0 ? (
             <div data-aos="zoom-in">
               <div className="lds-hourglass"></div>
-              <p className="font-semibold">No matching images found</p>
+              <p className="font-semibold text-white">No matching images found</p>
             </div>
           ) : (
             filteredImages.map((image) => (
               <div
-                className="litem text-dark m-2 p-1 hover:opacity-90"
+                className="litem text-white m-2 p-1 hover:opacity-90"
                 key={image.id}
                 id={image.id}
                 data-aos="fade-up"
                 data-aos-anchor-placement="top-bottom"
                 style={{
                   display: "inline-flex",
-                  transition: ".5s all ease-in-out",
+                  transition: ".2s all ease-in-out",
                   border: "2px solid #facdd0",
                   borderRadius: "5px",
                 }}

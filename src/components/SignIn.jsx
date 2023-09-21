@@ -108,13 +108,13 @@ const SignIn = () => {
                   type="text"
                   placeholder="User Email"
                   value={userEmail}
-                  className="w-full mb-14"
+                  className="input w-full mb-14"
                   onChange={(e) => setUserEmail(e.target.value)}
                 />
                 <input
                   type="password"
                   placeholder="Password"
-                  className="w-full mb-14"
+                  className=" input w-full mb-14"
                   value={userPass}
                   onChange={(e) => setUserPass(e.target.value)}
                 />

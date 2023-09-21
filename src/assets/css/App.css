@@ -1,32 +1,32 @@
-.body {
+
+body {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+   
+    color: #fff;
+    background-image: linear-gradient(
+        to bottom,
+        #000000df,
+        #030303e9
+      ),
+      url("./../images/background.png");
+    background-size: 100% 100%;
+    background-position: center;
 }
 
 input:focus {
   outline: none;
 }
 
-input {
+.input {
   background: inherit;
   display: block;
-  color: #fcbac2;
+  color: #fff;
   border-bottom: 10px solid #c67075;
 }
 
 input::placeholder {
   color: #fcbac2;
-}
-
-.main-cont {
-  background-image: linear-gradient(
-      to bottom,
-      rgba(68, 33, 55, 0.205),
-      #af4c5343
-    ),
-    url("./../images/background.png");
-  background-size: 100% 100%;
-  background-position: center;
 }
 
 .btns {
@@ -40,15 +40,12 @@ input::placeholder {
 }
 
 .btnss {
-  padding: 5px;
-  color: #761c22;
-  padding-left: 15px;
-  padding-right: 15px;
+  color: #af4c52;
   font-weight: bolder;
-  border: 2px solid #761c22;
+  border: 2px solid #af4c52;
   letter-spacing: 1px;
   font-size: 12px;
-  transition: 0.5s all ease-in-out;
+  transition: 0.2s all ease-in-out;
   font-weight: bolder;
 }
 
