@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -12,10 +12,15 @@ const ImageBox = () => {
   const [draggedItem, setDraggedItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const apiAccess = "https://api.artic.edu/api/v1/artworks?page=1&limit=30";
+  const dragItem = useRef();
+  const dragNode = useRef();
 
   const onDragStart = (e, image) => {
     e.dataTransfer.setData("text/plain", image.id);
     setDraggedItem(image);
+    dragItem.current = image;
+    dragNode.current = e.target;
+    dragNode.current.addEventListener("dragend", handleDragEnd);
   };
 
   const onDragOver = (e) => {
@@ -33,11 +38,11 @@ const ImageBox = () => {
   const onDrop = (e, targetImage) => {
     e.preventDefault();
 
-    if (draggedItem && draggedItem.id !== targetImage.id) {
+    if (dragItem.current && dragItem.current.id !== targetImage.id) {
       const updatedImages = images.map((image) => {
         if (image.id === targetImage.id) {
-          return draggedItem;
-        } else if (image.id === draggedItem.id) {
+          return dragItem.current;
+        } else if (image.id === dragItem.current.id) {
           return targetImage;
         } else {
           return image;
@@ -48,6 +53,12 @@ const ImageBox = () => {
     }
 
     setDraggedItem(null);
+  };
+
+  const handleDragEnd = () => {
+    dragNode.current.removeEventListener("dragend", handleDragEnd);
+    dragItem.current = null;
+    dragNode.current = null;
   };
 
   useEffect(() => {
@@ -76,7 +87,6 @@ const ImageBox = () => {
   return (
     <div className="py-3">
       <div className="mx-auto">
-        {/* Add search input */}
         <input
           type="text"
           placeholder="Search.."
@@ -98,16 +108,15 @@ const ImageBox = () => {
           onDrop={(e) => onDrop(e, null)}
         >
           {filteredImages.length === 0 ? (
-            <div
-            data-aos="zoom-in">
-              <div class="lds-dual-ring"></div>
+            <div data-aos="zoom-in">
+              <div className="lds-dual-ring"></div>
               <p className="font-semibold">No matching images found</p>
             </div>
           ) : (
             filteredImages.map((image) => (
               <div
-              data-aos="fade-up"
-              data-aos-anchor-placement="top-bottom"
+                data-aos="fade-up"
+                data-aos-anchor-placement="top-bottom"
                 className="litem text-dark m-3 p-1 hover:opacity-90"
                 key={image.id}
                 id={image.id}
@@ -117,6 +126,9 @@ const ImageBox = () => {
                 onDragOver={onDragOver}
                 onDragEnter={onDragEnter}
                 onDragLeave={onDragLeave}
+                onTouchStart={(e) => onDragStart(e, image)} // Handle touch start
+                onTouchMove={(e) => onDragOver(e)} // Handle touch move
+                onTouchEnd={(e) => onDrop(e, image)} // Handle touch end
                 style={{
                   display: "inline-flex",
                   transition: ".5s all ease-in-out",
