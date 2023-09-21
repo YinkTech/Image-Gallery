@@ -21,6 +21,15 @@ const SignIn = () => {
   const errorCodeToMessage = {
     "auth/user-not-found": "User not found. Please check your email.",
     "auth/wrong-password": "Incorrect password. Please try again.",
+    "auth/user-not-found": "User not Found. Please try again.",
+    "auth/too-many-requests":
+      "he number of requests exceeds the maximum allowed.",
+    "auth/email-already-exists":
+      "The provided email is already in use by an existing user.",
+    "auth/invalid-email": "Incorrect Email. Please try again.",
+    "auth/invalid-password": "Incorrect Password. Please try again.",
+    "auth/invalid-login-credentials":
+      "Incorrect Email and password. Please try again.",
   };
 
   const signIn = (email, password) => {
@@ -84,7 +93,12 @@ const SignIn = () => {
               Image Gallery
             </h1>
 
-            <div id="error-message" className="text-red-500 mb-4">
+            <h4 className=" text-start">Sign In</h4>
+            <div
+              id="error-message"
+              className="flex justify-center items-center p-4 mb-4 text-white-800 rounded-lg "
+              role="alert"
+            >
               {errorMessage}
             </div>
 

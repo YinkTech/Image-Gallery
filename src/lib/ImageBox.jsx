@@ -14,11 +14,11 @@ const ImageBox = () => {
   const apiAccess = `${apiKey}`;
   const gridRef = useRef(null);
   const sortableJsRef = useRef(null);
-  const [data, setData] = useState(
-    JSON.parse(sessionStorage.getItem("my-grid")) || filteredImages
-  );
-  const imageUrl = 'https://www.artic.edu/iiif/2/';
 
+  // Initialize data state with an empty array
+  const [data, setData] = useState([]);
+
+  const imageUrl = "https://www.artic.edu/iiif/2/";
 
   useEffect(() => {
     const getImage = async () => {
@@ -29,6 +29,9 @@ const ImageBox = () => {
           const data = await response.json();
           const filteredImages = data.data.filter((image) => image.image_id);
           setImages(filteredImages);
+
+          // Set the initial state of 'data' after 'filteredImages' has been initialized
+          setData(filteredImages);
         } else {
           setError("Failed to load images :(");
         }

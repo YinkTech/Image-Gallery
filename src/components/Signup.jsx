@@ -12,28 +12,38 @@ const Signup = () => {
     AOS.init();
   }, []);
 
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const [userNewEmail, setUserNewEmail] = useState("");
   const [userNewPass, setUserNewPass] = useState("");
 
-  const errorMessage = (input) => {
-    const errorDiv = document.getElementById("error-message")
-    errorDiv.classList.add('error');
-    errorDiv.textContent = input;
+  const errorCodeToMessage = {
+    "auth/user-not-found": "User not found. Please check your email.",
+    "auth/wrong-password": "Incorrect password. Please try again.",
+    "auth/user-not-found": "User not Found. Please try again.",
+    "auth/too-many-requests":
+      "he number of requests exceeds the maximum allowed.",
+    "auth/email-already-exists":
+      "The provided email is already in use by an existing user.",
+    "auth/invalid-email": "Incorrect Email. Please try again.",
+    "auth/invalid-password": "Incorrect Password. Please try again.",
+    "auth/invalid-login-credentials":
+      "Incorrect Email and password. Please try again.",
   };
 
   const signUpFunc = (e) => {
     e.preventDefault();
 
-      createUserWithEmailAndPassword(auth, userNewEmail, userNewPass)
-        .then((useCredential) => {
-          navigate("/home");
-        })
-        .catch((error) => {
-          console.log(error.message);
-          // return errorMessage("Email already in use ");
-          return errorMessage(`${error.message}`);
-        });
+    createUserWithEmailAndPassword(auth, userNewEmail, userNewPass)
+      .then(() => {
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error(error);
+        const message = errorCodeToMessage[error.code] || "An error occurred.";
+
+        setErrorMessage(message);
+      });
   };
 
   return (
@@ -79,9 +89,15 @@ const Signup = () => {
             >
               Image Gallery
             </h1>
-            <div id="error-message"></div>
-          
 
+            <h4 className=" text-start">Sign Up</h4>
+            <div
+              id="error-message"
+              className="flex justify-center items-center p-4 mb-4 text-white-800 rounded-lg "
+              role="alert"
+            >
+              {errorMessage}
+            </div>
             <div>
               <form onSubmit={signUpFunc}>
                 <input
@@ -103,10 +119,7 @@ const Signup = () => {
                   Sign Up
                 </button>
 
-                <Link
-                  to="/"
-                  className=" my-8 block text-[#fdbac2] underline"
-                >
+                <Link to="/" className=" my-8 block text-[#fdbac2] underline">
                   I'm already a member
                 </Link>
               </form>
