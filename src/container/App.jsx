@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import Control from "../components/Control";
 
 const App = () => {
-
   useEffect(() => {
     AOS.init();
   }, []);
@@ -39,28 +38,27 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="main-cont">
       {authUser ? (
         <>
           <div>
             <header className="flex justify-between items-center p-3">
               <div className="flex items-center ">
-                <img src={logo} alt={logo} style={{ width: "50px" }} />
-                {authUser.email}
+                <img src={logo} alt={logo} className="logo" style={{ width: "50px" }} />
+                {/* {authUser.email} */}
               </div>
               <div>
-                <button className="btns" onClick={userSignOut}>
+                <button className="btnss" onClick={userSignOut}>
                   {" "}
                   Sign Out{" "}
                 </button>
               </div>
             </header>
           </div>
-          <h1>hello world</h1>
           <Control />
         </>
       ) : (
-        <p>Signed Out</p>
+        <p>No Image Available please Sign-in or Sign-Up</p>
       )}
     </div>
   );

@@ -18,6 +18,17 @@ input::placeholder {
   color: #fcbac2;
 }
 
+.main-cont {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(68, 33, 55, 0.205),
+      #af4c5343
+    ),
+    url("./../images/background.png");
+  background-size: 100% 100%;
+  background-position: center;
+}
+
 .btns {
   padding: 10px;
   color: #facdd0;
@@ -27,11 +38,32 @@ input::placeholder {
   border: 2px solid #fad3d5;
   letter-spacing: 1px;
 }
-/* <div className="hidden">
-  <SignIn />
-<AuthDetails />
-<span className="underline">forgot Password</span>
-</div> */
+
+.btnss {
+  padding: 5px;
+  color: #761c22;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: bolder;
+  border: 2px solid #761c22;
+  letter-spacing: 1px;
+  font-size: 12px;
+  transition: 0.5s all ease-in-out;
+  font-weight: bolder;
+}
+
+.logo {
+  color: #761c22;
+}
+
+.btnss:hover {
+  background: #761c22;
+  color: #fff;
+}
+
+.litem {
+  cursor: move;
+}
 
 .error {
   color: rgb(153 27 27 / 1);
@@ -43,6 +75,30 @@ input::placeholder {
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   color: rgb(248 113 113 / 1);
-
   background-color: rgb(31 41 55 / 1);
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -16,25 +16,30 @@ const SignIn = () => {
 
   const [userEmail, setUserEmail] = useState("");
   const [userPass, setUserPass] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const errorMessage = (input) => {
-    const errorDiv = document.getElementById("error-message")
-    errorDiv.classList.add('error');
-    errorDiv.textContent = input;
+  const errorCodeToMessage = {
+    "auth/user-not-found": "User not found. Please check your email.",
+    "auth/wrong-password": "Incorrect password. Please try again.",
   };
 
-
-  const SignInFunc = (e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, userEmail, userPass)
+  const signIn = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         navigate("/home");
-        localStorage.setItem('user', response.data)
+        localStorage.setItem("user", response.data);
       })
       .catch((error) => {
-        console.log(error);
-        return errorMessage(`${error.code}`);
+        console.error(error);
+        const message = errorCodeToMessage[error.code] || "An error occurred.";
+
+        setErrorMessage(message);
       });
+  };
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    signIn(userEmail, userPass);
   };
 
   return (
@@ -78,12 +83,13 @@ const SignIn = () => {
             >
               Image Gallery
             </h1>
-            
-            <div id="error-message"></div>
-          
+
+            <div id="error-message" className="text-red-500 mb-4">
+              {errorMessage}
+            </div>
 
             <div>
-              <form onSubmit={SignInFunc}>
+              <form onSubmit={handleSignIn}>
                 <input
                   type="text"
                   placeholder="User Email"
