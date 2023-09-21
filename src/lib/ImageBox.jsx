@@ -1,65 +1,24 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Sortable from "sortablejs";
 
 const ImageBox = () => {
   useEffect(() => {
     AOS.init();
   }, []);
-
+  const apiKey = import.meta.env.VITE_ApiGallery;
   const [images, setImages] = useState([]);
   const [error, setError] = useState("");
-  const [draggedItem, setDraggedItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const apiAccess = "https://api.artic.edu/api/v1/artworks?page=1&limit=30";
-  const dragItem = useRef();
-  const dragNode = useRef();
+  const apiAccess = `${apiKey}`;
+  const gridRef = useRef(null);
+  const sortableJsRef = useRef(null);
+  const [data, setData] = useState(
+    JSON.parse(sessionStorage.getItem("my-grid")) || filteredImages
+  );
+  const imageUrl = 'https://www.artic.edu/iiif/2/';
 
-  const onDragStart = (e, image) => {
-    e.dataTransfer.setData("text/plain", image.id);
-    setDraggedItem(image);
-    dragItem.current = image;
-    dragNode.current = e.target;
-    dragNode.current.addEventListener("dragend", handleDragEnd);
-  };
-
-  const onDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const onDragEnter = (e) => {
-    e.preventDefault();
-  };
-
-  const onDragLeave = (e) => {
-    e.preventDefault();
-  };
-
-  const onDrop = (e, targetImage) => {
-    e.preventDefault();
-
-    if (dragItem.current && dragItem.current.id !== targetImage.id) {
-      const updatedImages = images.map((image) => {
-        if (image.id === targetImage.id) {
-          return dragItem.current;
-        } else if (image.id === dragItem.current.id) {
-          return targetImage;
-        } else {
-          return image;
-        }
-      });
-
-      setImages(updatedImages);
-    }
-
-    setDraggedItem(null);
-  };
-
-  const handleDragEnd = () => {
-    dragNode.current.removeEventListener("dragend", handleDragEnd);
-    dragItem.current = null;
-    dragNode.current = null;
-  };
 
   useEffect(() => {
     const getImage = async () => {
@@ -84,6 +43,22 @@ const ImageBox = () => {
     image.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const onListChange = () => {
+    const newData = [...gridRef.current.children]
+      .map((item) => item.dataset.id)
+      .map((id) => data.find((item) => item.id === id));
+
+    sessionStorage.setItem("my-grid", JSON.stringify(newData));
+    setData(newData);
+  };
+
+  useEffect(() => {
+    sortableJsRef.current = new Sortable(gridRef.current, {
+      animation: 150,
+      onEnd: onListChange,
+    });
+  }, []);
+
   return (
     <div className="py-3">
       <div className="mx-auto">
@@ -100,35 +75,20 @@ const ImageBox = () => {
           {error}
         </p>
       ) : (
-        <div
-          className="p-3 mx-auto text-center"
-          onDragOver={onDragOver}
-          onDragEnter={onDragEnter}
-          onDragLeave={onDragLeave}
-          onDrop={(e) => onDrop(e, null)}
-        >
+        <div ref={gridRef} className=" mx-auto text-center">
           {filteredImages.length === 0 ? (
             <div data-aos="zoom-in">
-              <div className="lds-dual-ring"></div>
+              <div className="lds-hourglass"></div>
               <p className="font-semibold">No matching images found</p>
             </div>
           ) : (
             filteredImages.map((image) => (
               <div
-                data-aos="fade-up"
-                data-aos-anchor-placement="top-bottom"
-                className="litem text-dark m-3 p-1 hover:opacity-90"
+                className="litem text-dark m-2 p-1 hover:opacity-90"
                 key={image.id}
                 id={image.id}
-                draggable
-                onDragStart={(e) => onDragStart(e, image)}
-                onDrop={(e) => onDrop(e, image)}
-                onDragOver={onDragOver}
-                onDragEnter={onDragEnter}
-                onDragLeave={onDragLeave}
-                onTouchStart={(e) => onDragStart(e, image)} // Handle touch start
-                onTouchMove={(e) => onDragOver(e)} // Handle touch move
-                onTouchEnd={(e) => onDrop(e, image)} // Handle touch end
+                data-aos="fade-up"
+                data-aos-anchor-placement="top-bottom"
                 style={{
                   display: "inline-flex",
                   transition: ".5s all ease-in-out",
@@ -137,8 +97,8 @@ const ImageBox = () => {
                 }}
               >
                 <img
-                  src={`https://www.artic.edu/iiif/2/${image.image_id}/full/200,/0/default.jpg`}
-                  style={{ width: "230px", height: "300px" }}
+                  src={`${imageUrl}${image.image_id}/full/200,/0/default.jpg`}
+                  className="w-[130px] h-[200px] sm:w-[200px] sm:h-[250px] md:w-[230px] md:h-[300px]"
                   alt={image.title}
                 />
               </div>
