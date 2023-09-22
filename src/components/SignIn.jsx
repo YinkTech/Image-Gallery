@@ -21,9 +21,8 @@ const SignIn = () => {
   const errorCodeToMessage = {
     "auth/user-not-found": "User not found. Please check your email.",
     "auth/wrong-password": "Incorrect password. Please try again.",
-    "auth/user-not-found": "User not Found. Please try again.",
     "auth/too-many-requests":
-      "he number of requests exceeds the maximum allowed.",
+      "the number of requests exceeds the maximum allowed.",
     "auth/email-already-exists":
       "The provided email is already in use by an existing user.",
     "auth/invalid-email": "Incorrect Email. Please try again.",
