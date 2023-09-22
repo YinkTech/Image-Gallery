@@ -1,6 +1,6 @@
 # HNGx Stage 3 Task: Drag-and-Drop Image gallery 
 
-A react app that uses firebase for it login and authentication, and a fully function drag and drop image gallary
+A react app that uses Firebase for login and authentication, and a fully functional drag-and-drop image gallery.
 
 # Built with
 
@@ -28,7 +28,7 @@ To get a local copy up and running, follow these simple steps:
 
 2. Clone the GitHub Repository using 'git clone https://github.com/YinkTech/Image-Gallery.git'
 
-- Go to the Project Directory 'cd moviebox-hngx'
+- Go to the Project Directory 'cd Image-Gallery'
 - Run `npm install` to install dependencies
 
 3. API key setup
@@ -39,7 +39,7 @@ To get a local copy up and running, follow these simple steps:
 
 4. Run project
 
-- Run `npm run dev`. it runs the app in the development mode.<br>
+- Run `npm run dev`. it runs the app in development mode.<br>
   Open http://localhost:5173 to view it in your browser.
 
 
